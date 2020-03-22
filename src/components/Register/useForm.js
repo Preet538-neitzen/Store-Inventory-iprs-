@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const useForm = validateInputs => {
-  const [values, setValues] = useState({ email: '', password: '', confirmPassword:'' });
+  const [values, setValues] = useState({ email: '', password: '', confirmPassword:'',Age:'', Gender:'' });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword,setConfirmPassword] = useState(false);
   

@@ -10,6 +10,7 @@ import NavBar from './NavBar/NavBar';
 import Login from './Login/Login';
 import Register from './Register/Register'
 import Home from './Home/Home';
+import Inventory from './Inventory/Products'
 
 const Routes = () => {
   return (
@@ -22,6 +23,10 @@ const Routes = () => {
         <Route exact path='/register'>
           <NavBar />
           <Register/>
+        </Route>
+        <Route exact path='/Inventory'>
+          <NavBar />
+          <Inventory />
         </Route>
         <PrivateRoute path='/'>
           <Home />

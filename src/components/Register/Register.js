@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
   formContainer: {
     flex: '1 1 30rem',
-    height: '26rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -33,13 +32,11 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: theme.spacing(2),
     padding: theme.spacing(0, 5),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(0, 2),
     },
     '& .MuiTextField-root': {
-      marginTop: theme.spacing(1),
       width: '100%',
       maxWidth: '20rem',
       [theme.breakpoints.down('xs')]: {
@@ -48,10 +45,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   paper: {
-    maxWidth: '70rem',
-    height: '38rem',
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
+    width: '55rem',
+    height: '55rem',
+    marginLeft:'0rem',
+    marginTop:"20rem",    padding: theme.spacing(2),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,7 +57,6 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     [theme.breakpoints.down('xs')]: {
       width: '30rem',
-      height: '38rem',
       alignItems: 'flex-start',
     },
   },
@@ -73,12 +69,16 @@ const useStyles = makeStyles(theme => ({
       marginBottom: theme.spacing(2),
     },
   },
+  h2:{
+    marginBottom:360,
+   fontWeight: '2000',
+  },
   heading: {
     fontWeight: '700',
     marginBottom: theme.spacing(4),
   },
   button: {
-    marginRight:250,
+    marginRight:0,
     width: '100%',
     maxWidth: '18rem',
     height: '3rem',
@@ -151,13 +151,16 @@ const Register = () => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-      <>
-        <h2>Employee Details & Credentials</h2>
-        </>
+      <h2 className={classes.h2}>
+        Details
+        {/* Style left side of register */}
+      </h2>
         <div className={classes.formContainer}>
           <Typography variant='h4' className={classes.heading}>
-            Register
+            Add New Employee
+            <hr/>
           </Typography>
+       
           <Hidden smUp>
             <img
               src={illustration}
@@ -200,7 +203,6 @@ const Register = () => {
               error={!(error.email === ' ')}
               helperText={error.email}
             />
-
             <TextField
               required
           
@@ -229,7 +231,7 @@ const Register = () => {
               id='password-input'
               name='confirmPassword'
               type={showConfirmPassword ? 'text' : 'password'}
-              label='confirmPassword'
+              label='Confirm Password'
               value={values.confirmPassword}
               onChange={handleChange}
               error={!(error.confirmPassword === ' ')}
@@ -244,11 +246,38 @@ const Register = () => {
                 ),
               }}
             />
+            <TextField
+              required
+              style={{marginTop:10}}
+              variant='filled'
+              id='name-input'
+              name='Gender'
+              type='drppdown'
+              label='Employee Gender'
+              value={values.Gender}
+              onChange={handleChange}
+              error={!(error.email === ' ')}
+              helperText={error.name}
+            />
+            <TextField
+              required
+              style={{marginTop:25}}
+              variant='filled'
+              id='name-input'
+              name='Age'
+              type='number'
+              label='Employee Age'
+              value={values.Age}
+              onChange={handleChange}
+              error={!(error.email === ' ')}
+              helperText={error.name}
+            />
             <Button
               type='submit'
               color='primary'
               variant='contained'
               className={classes.button}
+              style={{marginTop:25}}
             >
               Register
             </Button>

@@ -11,6 +11,7 @@ import Login from './Login/Login';
 import Register from './Register/Register'
 import Home from './Home/Home';
 import Inventory from './Inventory/Products'
+import Employee from './EmployeeNameDisplay/Employee'
 
 const Routes = () => {
   return (
@@ -27,6 +28,10 @@ const Routes = () => {
         <Route exact path='/Inventory'>
           <NavBar />
           <Inventory />
+        </Route>
+        <Route exact path='/Employee'>
+          <NavBar />
+          <Employee />
         </Route>
         <PrivateRoute path='/'>
           <Home />

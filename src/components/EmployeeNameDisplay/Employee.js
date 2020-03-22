@@ -70,8 +70,11 @@ const useStyles = makeStyles(theme => ({
 //   Add proper font weight and color   
   },
   smallButton:{
-    maxWidth: '1.1rem',
-    fontSize: '0.6rem',
+  
+    height: '1.4rem',
+    borderRadius: '2rem',
+    maxWidth: '100%',
+    fontSize: '1rem',
     fontWeight: '10     ',
   color:'grey',
   backgroundColor:'lightgrey',
@@ -83,34 +86,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function createData(name, quantity, price, total) {
-  return {name, quantity, price, total };
+function createData(name, age, gender, email ) {
+  return {name, age, gender, email };
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Eclair', 262, 16.0),
-  createData('Cupcake', 305, 3.7),
-  createData('Gingerbread', 356, 16.0),
+  createData('gnaepingp daguoaeg', 159, 6.0, 24),
+  createData('gnaepingp gnaepingp', 237, 9.0),
+  createData('gnaepingp gnaepingp', 262, 16.0),
+  createData('gnaepingp gnaepingp', 305, 3.7),
+  createData('gnaepingp gnaepingp ', 356, 16.0),
 ];
 
-export default function Inventory() {
+export default function Employee() {
   const classes = useStyles();
 
   return (
       <>
       <Typography variant='h3' className={classes.heading}>
-            Inventory
+            Employees
         </Typography>
     
         <TableContainer>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow style = {{backgroundColor:'lightgrey'}}>
-            <TableCell>Product</TableCell>
-            <TableCell align="right">Items</TableCell>
-            <TableCell align="right">Price&nbsp;(Rs)</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Gender</TableCell>
+            <TableCell align="right">Age</TableCell>
+            <TableCell align="right">Email</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
@@ -120,13 +124,20 @@ export default function Inventory() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.quantity}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
+              <TableCell align="right">Male</TableCell>
+              <TableCell align="right">20</TableCell>
               {/* Add routes to the edit and delete buttons */}
-              <TableCell align="right"><Button style={{OnHover:'white'}} type='edit'
+              <TableCell align="right"><a style={{OnHover:'white'}} type='edit'
               color='primary'
               variant='contained'
-              className={classes.smallButton}>Edit | Delete</Button></TableCell>
+              className={classes.emailText}>san@san.com</a></TableCell>
+              <TableCell align="right"><a style={{OnHover:'white',height: '1.4rem',
+    borderRadius: '0.2rem',
+    fontSize: '1rem',
+  color:'grey',}} type='edit'
+              color='primary'
+              variant='contained'
+              className={classes.smallButton}>Edit | Delete</a></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -139,7 +150,7 @@ export default function Inventory() {
             >
             {/* Add routing here */}
             {/* Add + Icon here */}
-             +    Add Product
+             +    Add Employee
             </Button></TableContainer>
 
 

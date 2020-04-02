@@ -10,6 +10,7 @@ import {Typography,Button} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   table: {
+    backgroundColor:'white',
       maxWidth:'65rem',
       marginLeft:250,
       marginTop:30,
@@ -134,7 +135,7 @@ export default function Employee() {
               <TableCell align="right"><a style={{OnHover:'white',height: '1.4rem',
     borderRadius: '0.2rem',
     fontSize: '1rem',
-  color:'grey',}} type='edit'
+  backgroundColor:'white',}} type='edit'
               color='primary'
               variant='contained'
               className={classes.smallButton}>Edit | Delete</a></TableCell>

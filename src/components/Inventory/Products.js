@@ -10,6 +10,7 @@ import {Typography,Button} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   table: {
+    backgroundColor:'white',
       maxWidth:'65rem',
       marginLeft:250,
       marginTop:30,
@@ -123,10 +124,13 @@ export default function Inventory() {
               <TableCell align="right">{row.quantity}</TableCell>
               <TableCell align="right">{row.price}</TableCell>
               {/* Add routes to the edit and delete buttons */}
-              <TableCell align="right"><Button style={{OnHover:'white'}} type='edit'
+              <TableCell align="right"><a style={{OnHover:'white',height: '1.4rem',
+    borderRadius: '0.2rem',
+    fontSize: '1rem',
+  backgroundColor:'white',}} type='edit'
               color='primary'
               variant='contained'
-              className={classes.smallButton}>Edit | Delete</Button></TableCell>
+              className={classes.smallButton}>Edit | Delete</a></TableCell>
             </TableRow>
           ))}
         </TableBody>

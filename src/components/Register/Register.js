@@ -7,78 +7,77 @@ import {
   Button,
   InputAdornment,
   IconButton,
-  Hidden,
+  Divider,
+  MenuItem,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import illustration from '../../images/Login.svg';
-import useForm from './useForm';
+import useForm from './useRegisterForm';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 'calc(100vh - 6rem)',
+  paper: {
+    textAlign: 'center',
+    padding: theme.spacing(4),
+    borderRadius: '10px',
+    boxShadow: '4px 4px 20px rgba(0,0,0,0.1)',
+    [theme.breakpoints.only('sm')]: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
   },
-  formContainer: {
-    flex: '1 1 30rem',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'minmax(120px,1fr) minmax(300px,2fr)',
+    '& > .MuiDivider-root': {
+      width: '60%',
+      gridColumn: 'span 2',
+      justifySelf: 'center',
+      [theme.breakpoints.only('xs')]: {
+        margin: '0 auto',
+      },
+    },
+    [theme.breakpoints.only('xs')]: {
+      display: 'block',
+    },
+  },
+  formHeading: {
+    marginTop: theme.spacing(3),
+    textAlign: 'right',
+    [theme.breakpoints.only('sm')]: {
+      textAlign: 'center',
+    },
+    [theme.breakpoints.only('xs')]: {
+      textAlign: 'left',
+    },
   },
   form: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(0, 5),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(0, 2),
-    },
+    marginTop: theme.spacing(3),
     '& .MuiTextField-root': {
       width: '100%',
       maxWidth: '20rem',
-      [theme.breakpoints.down('xs')]: {
-        maxWidth: '15rem',
-      },
     },
-  },
-  paper: {
-    width: '55rem',
-    height: '55rem',
-    marginLeft:'0rem',
-    marginTop:"20rem",    padding: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '10px',
-    boxShadow: '4px 4px 20px rgba(0,0,0,0.1)',
-    overflow: 'hidden',
-    [theme.breakpoints.down('xs')]: {
-      width: '30rem',
-      alignItems: 'flex-start',
+    '& > *': {
+      margin: theme.spacing(1),
     },
-  },
-  img: {
-    flex: '1 1 35rem',
-    maxWidth: '50%',
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
-      width: '15rem',
-      marginBottom: theme.spacing(2),
+    '& > :first-child': {
+      marginTop: 0,
     },
-  },
-  h2:{
-    marginBottom:360,
-   fontWeight: '2000',
   },
   heading: {
     fontWeight: '700',
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(2.5),
   },
   button: {
-    marginRight:0,
+    gridColumn: 'span 2',
+    justifySelf: 'center',
     width: '100%',
     maxWidth: '18rem',
     height: '3rem',
@@ -92,199 +91,198 @@ const useStyles = makeStyles(theme => ({
       maxWidth: '12rem',
     },
   },
+  radio: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   invalid: {
-    display: isInvalidCred => (isInvalidCred ? 'block' : 'none'),
+    display: props => (props.invalid === '' ? 'none' : 'block'),
   },
 }));
 
 const Register = () => {
-  const validateInputs = values => {
-    let errors1 = false;
-    let password1 = ' ';
-    let email1 = ' ';
-    let confirmPassword1 =  ' ';
-
-    if (values.email === '') {
-      errors1 = true;
-      email1 = 'Please fill out this field';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors1 = true;
-      email1 = 'Please enter a valid email';
-    }
-    if (values.password === '') {
-      errors1 = true;
-      password1 = 'Please fill out this field';
-    } else if (values.password.length < 5) {
-      errors1 = true;
-      password1 = 'Password should have more than 5 characters';
-    }
-    if(values.confirmPassword != values.password){
-        errors1 = true
-        confirmPassword1 = 'Does not match'
-    }else if(values.confirmPassword == values.password){
-        errors1 = false
-    }
-
-    return {
-      errors: errors1,
-      email: email1,
-      password: password1,
-      confirmPassword: confirmPassword1
-    };
-  };
-
+  // Use custom hook for form state management
   const {
     handleChange,
     handleSubmit,
     error,
-    isInvalidCred,
+    invalidCred,
     values,
     showConfirmPassword,
     showPassword,
     toggleShowPassword,
     toggleShowconfirmPassword,
- 
-  } = useForm(validateInputs);
+  } = useForm();
 
-  const classes = useStyles(isInvalidCred);
+  const classes = useStyles({ invalid: invalidCred });
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-      <h2 className={classes.h2}>
-        Details
-        {/* Style left side of register */}
-      </h2>
-        <div className={classes.formContainer}>
-          <Typography variant='h4' className={classes.heading}>
-            Add New Employee
-            <hr/>
-          </Typography>
-       
-          <Hidden smUp>
-            <img
-              src={illustration}
-              alt='Login illustration'
-              className={classes.img}
-            />
-          </Hidden>
-          <Typography variant='h6' color='error' className={classes.invalid}>
-            Invalid email or password. Please try again
-          </Typography>
-          <form
-            noValidate
-            onSubmit={handleSubmit}
-            autoComplete='off'
-            className={classes.form}
-          >
+    <Paper className={classes.paper}>
+      <Typography variant='h4' className={classes.heading}>
+        Add New Employee
+      </Typography>
+      <Typography
+        variant='h6'
+        color='error'
+        className={classes.invalid}
+        gutterBottom
+      >
+        {invalidCred}
+      </Typography>
+      <form
+        noValidate
+        onSubmit={handleSubmit}
+        autoComplete='off'
+        className={classes.gridContainer}
+      >
+        <Divider />
+        <Typography variant='h5' className={classes.formHeading}>
+          Account
+        </Typography>
+        <div className={classes.form}>
           <TextField
-              required
-              style={{marginTop:10}}
-              variant='filled'
-              id='name-input'
-              name='name'
-              type='name'
-              label='Employee Name'
-              value={values.name}
+            required
+            variant='filled'
+            id='last-name-input'
+            name='firstName'
+            label='First Name'
+            value={values.firstName}
+            onChange={handleChange}
+            error={!(error.firstName === ' ')}
+            helperText={error.firstName}
+          />
+          <TextField
+            required
+            variant='filled'
+            id='first-name-input'
+            name='lastName'
+            label='Last Name'
+            value={values.lastName}
+            onChange={handleChange}
+            error={!(error.lastName === ' ')}
+            helperText={error.lastName}
+          />
+          <TextField
+            required
+            variant='filled'
+            id='email-input'
+            name='email'
+            type='email'
+            label='Email'
+            value={values.email}
+            onChange={handleChange}
+            error={!(error.email === ' ')}
+            helperText={error.email}
+          />
+          <TextField
+            required
+            variant='filled'
+            id='password-input'
+            name='password'
+            type={showPassword ? 'text' : 'password'}
+            label='Password'
+            value={values.password}
+            onChange={handleChange}
+            error={!(error.password === ' ')}
+            helperText={error.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton onClick={toggleShowPassword} tabIndex='-1'>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            required
+            variant='filled'
+            id='confirm-password-input'
+            name='confirmPassword'
+            type={showConfirmPassword ? 'text' : 'password'}
+            label='Confirm Password'
+            value={values.confirmPassword}
+            onChange={handleChange}
+            error={!(error.confirmPassword === ' ')}
+            helperText={error.confirmPassword}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton onClick={toggleShowconfirmPassword} tabIndex='-1'>
+                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            required
+            variant='filled'
+            id='gender-input'
+            name='gender'
+            select
+            label='Employee Gender'
+            value={values.gender}
+            onChange={handleChange}
+            error={!(error.gender === ' ')}
+            helperText={error.gender}
+          >
+            {['Male', 'Female', 'Other'].map((option, index) => (
+              <MenuItem key={option} value={['M', 'F', 'Other'][index]}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            required
+            variant='filled'
+            id='age-input'
+            name='age'
+            type='number'
+            label='Employee Age'
+            InputProps={{
+              inputProps: {
+                min: 0,
+              },
+            }}
+            value={values.age}
+            onChange={handleChange}
+            error={!(error.age === ' ')}
+            helperText={error.age}
+          />
+          <FormControl component='fieldset'>
+            <FormLabel component='legend'>Type</FormLabel>
+            <RadioGroup
+              name='isStaff'
+              value={values.isStaff}
               onChange={handleChange}
-              error={!(error.email === ' ')}
-              helperText={error.name}
-            />
-            <TextField
-              required
-              style={{marginTop:25}}
-              variant='filled'
-              id='email-input'
-              name='email'
-              type='email'
-              label='Email'
-              value={values.email}
-              onChange={handleChange}
-              error={!(error.email === ' ')}
-              helperText={error.email}
-            />
-            <TextField
-              required
-          
-              variant='filled'
-              id='password-input'
-              name='password'
-              type={showPassword ? 'text' : 'password'}
-              label='Password'
-              value={values.password}
-              onChange={handleChange}
-              error={!(error.password === ' ')}
-              helperText={error.password}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={toggleShowPassword}>
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              required
-              variant='filled'
-              id='password-input'
-              name='confirmPassword'
-              type={showConfirmPassword ? 'text' : 'password'}
-              label='Confirm Password'
-              value={values.confirmPassword}
-              onChange={handleChange}
-              error={!(error.confirmPassword === ' ')}
-              helperText={error.confirmPassword}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={toggleShowconfirmPassword}>
-                      {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              required
-              style={{marginTop:10}}
-              variant='filled'
-              id='name-input'
-              name='Gender'
-              type='drppdown'
-              label='Employee Gender'
-              value={values.Gender}
-              onChange={handleChange}
-              error={!(error.email === ' ')}
-              helperText={error.name}
-            />
-            <TextField
-              required
-              style={{marginTop:25}}
-              variant='filled'
-              id='name-input'
-              name='Age'
-              type='number'
-              label='Employee Age'
-              value={values.Age}
-              onChange={handleChange}
-              error={!(error.email === ' ')}
-              helperText={error.name}
-            />
-            <Button
-              type='submit'
-              color='primary'
-              variant='contained'
-              className={classes.button}
-              style={{marginTop:25}}
+              className={classes.radio}
             >
-              Register
-            </Button>
-          </form>
+              <FormControlLabel
+                value='true'
+                control={<Radio />}
+                label='Manager'
+              />
+              <FormControlLabel
+                value='false'
+                control={<Radio />}
+                label='Employee'
+              />
+            </RadioGroup>
+          </FormControl>
         </div>
-      </Paper>
-    </div>
+        <Button
+          type='submit'
+          color='primary'
+          variant='contained'
+          className={classes.button}
+          onClick={handleSubmit}
+        >
+          Register
+        </Button>
+      </form>
+    </Paper>
   );
 };
 
